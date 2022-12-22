@@ -23,6 +23,10 @@ export default function NFTs() {
     };
   },[isConnected, walletAddress]); // run this effect when the isConnected value or the isHydrated value changes
   
+  useEffect(() => {
+    // code to trigger a re-render when the nfts state changes goes here
+  }, [nfts]);
+
   return (
     <div className='p-10 flex flex-col items-center'>
       {!address && <p>Please connect a wallet to view your NFTs.</p>}
