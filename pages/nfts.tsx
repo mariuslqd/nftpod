@@ -44,7 +44,7 @@ export default function NFTs() {
       <div className='grid grid-cols-4 mt-8 gap-4'>
         {nfts.map((nft) => {
           return (
-            <Link href="/print" as={`/print/${nft.tokenId}`}>
+            <Link href="print" as={`print/${nft.tokenId}`}>
               <div
                 key={`${nft.contractAddress}/${nft.tokenId}`}
                 className='flex flex-col rounded border p-4'
