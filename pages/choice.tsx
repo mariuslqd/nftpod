@@ -1,11 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router'; // import the useRouter hook
-import NFTs from './nfts';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import {useAccount} from "wagmi";
 
-export default function choosen() {
+export default function Choosen() {
 
     const router = useRouter();
     
