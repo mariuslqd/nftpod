@@ -44,10 +44,9 @@ export default function NFTs() {
       <div className='grid grid-cols-4 mt-8 gap-4'>
         {nfts.map((nft) => {
           return (
-            
               <div key={`${nft.contractAddress}/${nft.tokenId}`}
                 className='flex flex-col rounded border p-4'>
-                <Link href="/print" as={`/print/${nft.tokenId}`}>
+                <Link href="/print" as={`/print/${nft.contractAddress}/${nft.tokenId}`}>
                 <img
                   className='w-[200px] h-[200px] rounded shadow'
                   src={nft.imageUrl}
@@ -57,7 +56,6 @@ export default function NFTs() {
                 <span>{nft.collectionName}</span>
                 </Link>
               </div>
-            
           );
         })}
       </div>
