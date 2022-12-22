@@ -12,28 +12,18 @@ export default function NFTs() {
   const [nfts, setNfts] = useState<Nft[]>([]);
 
   useEffect(() => {
-    const fetchNfts = async () => {
-      if (isConnected) {
-        // get the NFTs from the wallet address and set them in the state
-        const { nfts } = await getNfts(walletAddress);
-        setNfts(nfts);
-      } else {
-        // if the wallet is not connected, clear the NFTs from the state
-        setNfts([]);
-      }
-    };
-    fetchNfts();
-  }, [isConnected, walletAddress]); // run this effect when the isConnected value or the walletAddress value changes
+    (async () => {
+      const { nfts } = await getNfts(walletAddress);
+      setNfts(nfts);
+    })();
+  }, [walletAddress]);
 
-  const refreshNfts = async () => {
-    const { nfts } = await getNfts(walletAddress);
-    setNfts(nfts);
-  };
+ 
+
 
   return (
     <div className='p-10 flex flex-col items-center'>
       {!address && <p>Please connect a wallet to view your NFTs.</p>}
-      {address &&<button onClick={refreshNfts}>Refresh NFTs</button>}
       <div className='grid grid-cols-4 mt-8 gap-4'>
         {nfts.map((nft) => {
           return (
