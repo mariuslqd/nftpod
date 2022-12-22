@@ -29,10 +29,11 @@ export default function NFTs() {
   return (
     <div className='p-10 flex flex-col items-center'>
       {!address && <p>Please connect a wallet to view your NFTs.</p>}
-      {address &&<button
+      {address && <p>Your Address: {address}</p>}
+      {address && <button 
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={() => setNfts(nfts)}>{address}
-            </button>}
+                onClick={() => window.location.reload()}><p>See NFTs Now</p>
+      </button>}
       <div className='grid grid-cols-4 mt-8 gap-4'>
         {nfts.map((nft) => {
           return (
