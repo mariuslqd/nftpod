@@ -1,36 +1,30 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { getNfts, useNfts } from  "../providers/anker";
-import { Nft } from '@ankr.com/ankr.js/dist/types';
-import {useAccount} from "wagmi";
+import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router'; // import the useRouter hook
 
-export default function Print() {
-  const router = useRouter();
-  const { tokenId } = router.query;
-  const [nfts, setNfts] = useState<Nft | null>(null);
-  const { address, isConnected } = useAccount(); // get the current wallet address from Wagmi
-  const [walletAddress, setWalletAddress] = useState(`${address}`);
 
-  useEffect(() => {
-    const fetchNft = async () => {
-      const nft = await getNfts(walletAddress);
-      setNfts(nfts);
-    };
-    fetchNft();
-  }, [tokenId]);
 
-  return (
+export default function Choices() {
+const router = useRouter(); // get the current route
+
+return (
     <div>
-      {nfts ? (
-        <>
-          <img src={nfts.imageUrl} alt={nfts.name} />
-          <h1>{nfts.name}</h1>
-          <p>Collection: {nfts.collectionName}</p>
-        </>
-      ) : (
-        <p>Loading NFT...</p>
-      )}
+    <Link href="/choice/" as={`/choice?mug`}>
+    <img src="/blank-300x300.png" title ="mug" />
+        <p>Mug</p>
+    </Link>
+      <Link href="/choice/" as={`/choice?canvas`}>
+          <img src="/blank-300x300.png" title ="canvas" />
+          <p>Canvas</p>
+      </Link>
+      <Link href="/choice" as={`/choice?t-shirt`}>
+          <img src="/blank-300x300.png" title ="t-shirt" />
+          <p>T-shirt</p>
+      </Link>
+      <Link href="/choice" as={`/choice?tradingcard`}>
+          <img src="/blank-300x300.png" title ="tradingcard" />
+          <p>Trading card</p>
+      </Link>
     </div>
   );
-}
+};
