@@ -7,21 +7,17 @@ import {useAccount} from "wagmi";
 
  
 export default function NFTs() {
-  const [isDefinitelyConnected, setIsDefinitelyConnected] = useState(false);
   const { address, isConnected } = useAccount(); // get the current wallet address from Wagmi
   const [walletAddress, setWalletAddress] = useState(`${address}`);
   const [nfts, setNfts] = useState<Nft[]>([]);
 
   useEffect(() => {
-    // only run this effect if the component is hydrated and the wallet is connected
     if (isConnected) {
-      setIsDefinitelyConnected(true);
       // get the NFTs from the wallet address and set them in the state
       getNfts(walletAddress).then((response) => {
         setNfts(response.nfts);
       });
-    } else if (!isConnected) {
-      setIsDefinitelyConnected(false)
+    } else if (!isConnected) { 
       // if the wallet is not connected, clear the NFTs from the state
       setNfts([]);
     }
