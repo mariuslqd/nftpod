@@ -12,20 +12,19 @@ export default function NFTs() {
   const [nfts, setNfts] = useState<Nft[]>([]);
 
   useEffect(() => {
-    if (isConnected) {
-      // get the NFTs from the wallet address and set them in the state
-      getNfts(walletAddress).then((response) => {
-        setNfts(response.nfts);
-      });
-    } else if (!isConnected) { 
-      // if the wallet is not connected, clear the NFTs from the state
-      setNfts([]);
+    const fetchNfts = async () => {
+      if (isConnected) {
+        // get the NFTs from the wallet address and set them in the state
+        const { nfts } = await getNfts(walletAddress);
+        setNfts(nfts);
+      } else {
+        // if the wallet is not connected, clear the NFTs from the state
+        setNfts([]);
+      }
     };
-  },[isConnected, walletAddress]); // run this effect when the isConnected value or the isHydrated value changes
-  
-  useEffect(() => {
-    // code to trigger a re-render when the nfts state changes goes here
-  }, [nfts]);
+    fetchNfts();
+  }, [isConnected, walletAddress]); // run this effect when the isConnected value or the walletAddress value changes
+
 
   return (
     <div className='p-10 flex flex-col items-center'>
