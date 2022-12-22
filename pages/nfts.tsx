@@ -25,10 +25,15 @@ export default function NFTs() {
     fetchNfts();
   }, [isConnected, walletAddress]); // run this effect when the isConnected value or the walletAddress value changes
 
+  const refreshNfts = async () => {
+    const { nfts } = await getNfts(walletAddress);
+    setNfts(nfts);
+  };
 
   return (
     <div className='p-10 flex flex-col items-center'>
       {!address && <p>Please connect a wallet to view your NFTs.</p>}
+      {address &&<button onClick={refreshNfts}>Refresh NFTs</button>}
       <div className='grid grid-cols-4 mt-8 gap-4'>
         {nfts.map((nft) => {
           return (
