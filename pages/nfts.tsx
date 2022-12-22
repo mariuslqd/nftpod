@@ -4,33 +4,28 @@ import React, { useState, useEffect } from 'react';
 import { getNfts, useNfts } from  "../providers/anker";
 import { Nft } from '@ankr.com/ankr.js/dist/types';
 import {useAccount} from "wagmi";
-import {useIsMounted} from "./hooks/useIsMounted"
 
  
 export default function NFTs() {
-  const mounted = useIsMounted(); // use the useIsMounted hook to check if the component is mounted
+  const [isDefinitelyConnected, setIsDefinitelyConnected] = useState(false);
   const { address, isConnected } = useAccount(); // get the current wallet address from Wagmi
   const [walletAddress, setWalletAddress] = useState(`${address}`);
   const [nfts, setNfts] = useState<Nft[]>([]);
-  const [isHydrated, setIsHydrated] = useState(false); // new flag to track hydration
 
   useEffect(() => {
     // only run this effect if the component is hydrated and the wallet is connected
-    if (isHydrated && isConnected) {
+    if (isConnected) {
+      setIsDefinitelyConnected(true);
       // get the NFTs from the wallet address and set them in the state
       getNfts(walletAddress).then((response) => {
         setNfts(response.nfts);
       });
-    } else if (isHydrated && !isConnected) {
+    } else if (!isConnected) {
+      setIsDefinitelyConnected(false)
       // if the wallet is not connected, clear the NFTs from the state
       setNfts([]);
     }
-  }, [isConnected, isHydrated, walletAddress]); // run this effect when the isConnected value or the isHydrated value changes
-  
-  // set the isHydrated flag to true after the initial render
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
+  }, [isConnected, walletAddress]); // run this effect when the isConnected value or the isHydrated value changes
 
   
   return (
