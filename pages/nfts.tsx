@@ -19,18 +19,19 @@ export default function NFTs() {
   const [nfts, setNfts] = useState<Nft[]>([]);
 
   useEffect(() => {
-    const fetchNfts = async () => {
+
       if (address) {
+        const fetchNfts = async () => {
         // get the NFTs from the wallet address and set them in the state
         const { nfts } = await getNfts(walletAddress);
         setNfts(nfts);
+        console.log(nfts)
+        fetchNfts() }
       } else {
         // if the wallet is not connected, clear the NFTs from the state
         setNfts([]);
       }
-    };
-    fetchNfts();
-  }, [address]); // run this effect when the address value changes
+    }, [address]); // run this effect when the address value changes
 
 
   return (
