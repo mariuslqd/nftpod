@@ -1,19 +1,19 @@
 'use client';
-
+import Head from 'next/head'
+import Image from 'next/image'
+import { Inter } from '@next/font/google'
+import styles from '../styles/Home.module.css'
+import Wallet from './wallet';
+import WagmiProvider from "../providers/wagmi";
+import NFTs from '.';
 import React, { useState, useEffect } from 'react';
-import { getNfts, useNfts } from  "../providers/anker";
-import { Nft } from '@ankr.com/ankr.js/dist/types';
-import {useAccount} from "wagmi";
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import {useAccount} from "wagmi";
+import { Nft } from '@ankr.com/ankr.js/dist/types';
+import { getNfts, useNfts } from  "../providers/anker";
+import Link from 'next/link';
 
- 
- 
-export default function NFTs() {
-  const router = useRouter();
-  const forceReload = () => {
-  router.reload();};
+export default function Nftshow() {
   const { address, isConnected } = useAccount(); // get the current wallet address from Wagmi
   const [walletAddress, setWalletAddress] = useState(`${address}`);
   const [nfts, setNfts] = useState<Nft[]>([]);
@@ -24,7 +24,6 @@ export default function NFTs() {
         // get the NFTs from the wallet address and set them in the state
         const { nfts } = await getNfts(walletAddress);
         setNfts(nfts);
-        router.push('/nfts_show');
       } else if (!isConnected) {
         // if the wallet is not connected, clear the NFTs from the state
         setNfts([]);
@@ -33,19 +32,14 @@ export default function NFTs() {
     fetchNfts();
   }, [isConnected, walletAddress]); // run this effect when the isConnected value or the walletAddress value changes
 
-
   return (
-    <div><ConnectButton 
+<div >
+  <ConnectButton 
     accountStatus={"address"}
     showBalance={false}
     chainStatus={"none"}
     />
-    <div className='p-10 flex flex-col items-center'>
-      {!address && <p>Please connect a wallet to view your NFTs.</p>}
-      {address && <button 
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={forceReload}><p>See NFTs Now</p>
-      </button>}
+        <div className='p-10 flex flex-col items-center'></div>
       <div className='grid grid-cols-4 mt-8 gap-4'>
         {nfts.map((nft) => {
           return (
@@ -65,6 +59,5 @@ export default function NFTs() {
         })}
       </div>
     </div>
-        </div>
   );
 };
