@@ -16,6 +16,11 @@ const { address } = useAccount();
 
   return (
 <div>
+<ConnectButton 
+    accountStatus={"address"}
+    showBalance={false}
+    chainStatus={"none"}
+    />
 <NFTs />
 </div>
 )

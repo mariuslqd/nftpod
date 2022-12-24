@@ -20,26 +20,20 @@ export default function NFTs() {
 
   useEffect(() => {
     const fetchNfts = async () => {
-      if (isConnected) {
+      if (address) {
         // get the NFTs from the wallet address and set them in the state
         const { nfts } = await getNfts(walletAddress);
         setNfts(nfts);
-        router.push('/nfts_show');
-      } else if (!isConnected) {
+      } else {
         // if the wallet is not connected, clear the NFTs from the state
         setNfts([]);
       }
     };
     fetchNfts();
-  }, [isConnected, walletAddress]); // run this effect when the isConnected value or the walletAddress value changes
+  }, [address]); // run this effect when the address value changes
 
 
   return (
-    <div><ConnectButton 
-    accountStatus={"address"}
-    showBalance={false}
-    chainStatus={"none"}
-    />
     <div className='p-10 flex flex-col items-center'>
       {!address && <p>Please connect a wallet to view your NFTs.</p>}
       {address && <button 
@@ -65,6 +59,5 @@ export default function NFTs() {
         })}
       </div>
     </div>
-        </div>
   );
 };
