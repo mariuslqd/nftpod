@@ -5,7 +5,7 @@ import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import Wallet from './wallet';
 import WagmiProvider from "../providers/wagmi";
-import NFTs from './nfts';
+import NFTs from '.';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 import React, { useState, useEffect } from 'react';
