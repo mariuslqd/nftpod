@@ -10,18 +10,19 @@ export default function Choosen() {
     const router = useRouter();
     
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
     
-        // send an email to "mariussmithofficial@gmail.com" with the form data
-        // you can use an email library or API to do this
-        sendEmail(
-          'mariussmithofficial@gmail.com',
-          'New form submission',
-          `Name: ${name}\nAddress: ${address}\nItem: ${item}\nURL: ${url}`
-        );
-      };
-      console.log(`${url}`)
+    //     // send an email to "mariussmithofficial@gmail.com" with the form data
+    //     // you can use an email library or API to do this
+    //     sendEmail(
+    //       'mariussmithofficial@gmail.com',
+    //       'New form submission',
+    //       `Name: ${name}\nAddress: ${address}\nItem: ${item}\nURL: ${url}`
+    //     );
+    //   };
+    //   console.log(`${url}`)
+
       return (
     <div>
       <ConnectButton 
@@ -29,7 +30,7 @@ export default function Choosen() {
         showBalance={false}
         chainStatus={"none"}
         />
-        <div className='p-10 flex flex-col items-center'>
+        {/* <div className='p-10 flex flex-col items-center'>
         <form onSubmit={handleSubmit}>
       <label>
         Name:
@@ -59,7 +60,7 @@ export default function Choosen() {
       <input  type="submit" value="Submit" />
       </button>
     </form>
-        </div>
+        </div> */}
     </div>
     )
     }
