@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import { getNfts, useNfts } from  "../providers/anker";
 import { Nft } from '@ankr.com/ankr.js/dist/types';
@@ -19,19 +18,18 @@ export default function NFTs() {
   const [nfts, setNfts] = useState<Nft[]>([]);
 
   useEffect(() => {
-
-      if (address) {
-        const fetchNfts = async () => {
+    const fetchNfts = async () => {
+      if (isConnected) {
         // get the NFTs from the wallet address and set them in the state
         const { nfts } = await getNfts(walletAddress);
         setNfts(nfts);
-        console.log(nfts)
-        fetchNfts() }
-      } else {
+      } else if (!isConnected) {
         // if the wallet is not connected, clear the NFTs from the state
         setNfts([]);
       }
-    }, [address]); // run this effect when the address value changes
+    };
+    fetchNfts();
+  }, [isConnected, walletAddress]); // run this effect when the isConnected value or the walletAddress value changes
 
 
   return (
@@ -40,7 +38,8 @@ export default function NFTs() {
       {address && <button 
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 onClick={forceReload}><p>See NFTs Now</p>
-      </button>}
+      </button>
+      }
       <div className='grid grid-cols-4 mt-8 gap-4'>
         {nfts.map((nft) => {
           return (

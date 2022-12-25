@@ -8,12 +8,11 @@ import WagmiProvider from "../providers/wagmi";
 import NFTs from './nfts';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import {useAccount} from "wagmi";
+import React, { useState, useEffect } from 'react';
 
 
 export default function Home() {
-
 const { address } = useAccount();
-
   return (
 <div>
 <ConnectButton 
