@@ -6,8 +6,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 export default function Choosen() {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
-    const [item, setItem] = useState('');
-    const [url, setUrl] = useState('');
+      const [url, setUrl] = useState('');
     const router = useRouter();
     
 
